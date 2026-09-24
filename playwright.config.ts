@@ -33,7 +33,16 @@ export default defineConfig({
   projects: [
     {
       name: 'msedge-desktop',
+      testIgnore: /08-ipad-pwa\.spec\.ts/,
       use: { ...devices['Desktop Chrome'], channel: 'msedge' },
+    },
+    {
+      name: 'webkit-ipad-pwa',
+      testMatch: /08-ipad-pwa\.spec\.ts/,
+      use: {
+        ...devices['iPad Pro 11'],
+        baseURL: BASE_URL,
+      },
     },
   ],
   webServer: {

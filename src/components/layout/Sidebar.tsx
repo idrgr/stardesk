@@ -22,16 +22,19 @@ function NavItem({
   icon: Icon,
   label,
   collapsed,
+  onNavigate,
 }: {
   to: string
   icon: React.ComponentType<{ className?: string }>
   label: string
   collapsed: boolean
+  onNavigate?: () => void
 }) {
   return (
     <NavLink
       to={to}
       title={collapsed ? label : undefined}
+      onClick={() => onNavigate?.()}
       className={({ isActive }) =>
         cn(
           'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors duration-150',
@@ -61,10 +64,12 @@ export function Sidebar({
   collapsed,
   onToggle,
   showCollapseToggle = true,
+  onNavigate,
 }: {
   collapsed: boolean
   onToggle: () => void
   showCollapseToggle?: boolean
+  onNavigate?: () => void
 }) {
   const { db } = useData()
   const { settings } = useSettings()
@@ -74,6 +79,7 @@ export function Sidebar({
 
   return (
     <aside
+      aria-label="侧栏"
       className={cn(
         'flex h-full flex-col border-r border-divider bg-surface/40 transition-[width] duration-200',
         collapsed ? 'w-[72px]' : 'w-[232px]',
@@ -96,8 +102,8 @@ export function Sidebar({
       <nav className="flex-1 overflow-y-auto px-3 pb-4">
         <GroupLabel collapsed={collapsed}>工作空间</GroupLabel>
         <div className="space-y-0.5">
-          <NavItem to="/dashboard" icon={LayoutDashboard} label="总览" collapsed={collapsed} />
-          <NavItem to="/actions" icon={ListTodo} label="行动中心" collapsed={collapsed} />
+          <NavItem to="/dashboard" icon={LayoutDashboard} label="总览" collapsed={collapsed} onNavigate={onNavigate} />
+          <NavItem to="/actions" icon={ListTodo} label="行动中心" collapsed={collapsed} onNavigate={onNavigate} />
         </div>
 
         <GroupLabel collapsed={collapsed}>我的领域</GroupLabel>
@@ -111,6 +117,7 @@ export function Sidebar({
                 icon={Icon}
                 label={m.name}
                 collapsed={collapsed}
+                onNavigate={onNavigate}
               />
             )
           })}
@@ -118,16 +125,16 @@ export function Sidebar({
 
         <GroupLabel collapsed={collapsed}>沉淀与回顾</GroupLabel>
         <div className="space-y-0.5">
-          <NavItem to="/knowledge" icon={Library} label="知识库" collapsed={collapsed} />
-          <NavItem to="/reviews" icon={CalendarCheck} label="周期复盘" collapsed={collapsed} />
+          <NavItem to="/knowledge" icon={Library} label="知识库" collapsed={collapsed} onNavigate={onNavigate} />
+          <NavItem to="/reviews" icon={CalendarCheck} label="周期复盘" collapsed={collapsed} onNavigate={onNavigate} />
         </div>
       </nav>
 
       {/* 底部固定区域 */}
       <div className="border-t border-divider px-3 py-3">
         <div className="space-y-0.5">
-          <NavItem to="/module-center" icon={LayoutGrid} label="模块中心" collapsed={collapsed} />
-          <NavItem to="/settings" icon={SettingsIcon} label="设置与数据" collapsed={collapsed} />
+          <NavItem to="/module-center" icon={LayoutGrid} label="模块中心" collapsed={collapsed} onNavigate={onNavigate} />
+          <NavItem to="/settings" icon={SettingsIcon} label="设置与数据" collapsed={collapsed} onNavigate={onNavigate} />
         </div>
         {!collapsed ? (
           <div className="mt-3 flex items-center gap-2 px-3">

@@ -128,6 +128,41 @@ export function publishEpochChange(dbName: string, epoch: string): void {
   }
 }
 
+/** 从 storage 回退键与可见性变化中补检 epoch（Safari / 多标签页 BC 异常时）。 */
+export function refreshEpochStaleFromHints(dbName: string): void {
+  const s = stateFor(dbName)
+  if (s.stale) return
+  try {
+    const raw = localStorage.getItem(s.storageKey)
+    if (!raw) return
+    const parsed = JSON.parse(raw) as { epoch?: string }
+    if (
+      typeof parsed.epoch === 'string' &&
+      s.knownEpoch !== null &&
+      parsed.epoch !== s.knownEpoch
+    ) {
+      markEpochStale(dbName, parsed.epoch)
+    }
+  } catch {
+    /* 忽略 */
+  }
+}
+
+/** 页面可见时与定时轮询，避免 BroadcastChannel 偶发未送达。 */
+export function attachEpochVisibilityPoll(dbName: string): () => void {
+  if (typeof document === 'undefined') return () => undefined
+  const tick = () => refreshEpochStaleFromHints(dbName)
+  const onVis = () => {
+    if (document.visibilityState === 'visible') tick()
+  }
+  document.addEventListener('visibilitychange', onVis)
+  const id = window.setInterval(tick, 20_000)
+  return () => {
+    document.removeEventListener('visibilitychange', onVis)
+    window.clearInterval(id)
+  }
+}
+
 /** 安装跨标签页监听（BroadcastChannel 优先，storage 事件回退）。幂等。 */
 export function attachEpochChannel(dbName: string): void {
   const s = stateFor(dbName)

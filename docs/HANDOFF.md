@@ -1,21 +1,21 @@
 # 星枢 StarDesk — 交接文档
 
-最后更新：2026-09-24（**V1 Final QA & Closeout 完成**）
+最后更新：2026-09-24（**V1 正式完成**；**feat/ipad-pwa** 进行中）
 
 ## 当前状态
 
-- **版本：** StarDesk **V1 正式完成**（见 `docs/V1_FINAL_DELIVERY_REPORT.md`）。
-- **可运行状态：** 完整个人工作台——总览、行动中心、四领域、知识库、搜索、专注、复盘、模块中心、备份恢复、回收站、演示空间、设置。
-- **浏览器验收：** Playwright **28/28** 通过（Microsoft Edge）；多断点截图在 `e2e-evidence/`。
+- **main @ v1.0.0：** StarDesk V1 正式完成（`docs/V1_FINAL_DELIVERY_REPORT.md`）。
+- **feat/ipad-pwa：** iPad PWA（manifest、SW、布局/触控/Safe Area）；见 `docs/IPAD_PWA_DELIVERY_REPORT.md`。
+- **浏览器验收：** Playwright **44/44**（Edge 28 + WebKit iPad 16）；截图 `e2e-evidence/`。
 
 ## 技术栈与命令
 
 - React 19.3、TypeScript 7.0、Vite 8.3、React Router 7（HashRouter）、Tailwind CSS 4.3、
   Dexie 4.4、Zod 4.6、Vitest 5、Playwright 1.63（`channel: 'msedge'`）。
 - 命令：
-  - `npm run dev` / `npm run build` / `npm run preview`
-  - `npm run test`（Vitest，当前 **107** 用例）
-  - `npm run test:e2e`（Playwright，**28** 用例）
+  - `npm run dev` / `npm run dev:host` / `npm run build` / `npm run preview --host`
+  - `npm run test`（Vitest，当前 **112** 用例）
+  - `npm run test:e2e`（Playwright，**44** 用例）
   - `npm run typecheck`
 
 ## 关键文件

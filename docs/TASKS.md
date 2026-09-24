@@ -121,3 +121,17 @@
 | 生产构建 | 已验证完成 | `npm run build` 通过 |
 
 **V1 正式完成** — 详见 `docs/V1_FINAL_DELIVERY_REPORT.md`。
+
+## feat/ipad-pwa（2026-09-24，未合并 main）
+
+| 任务 | 状态 | 验证证据 |
+| --- | --- | --- |
+| vite-plugin-pwa + manifest + SW | 已验证完成 | `vite.config.ts`；Vitest `src/pwa/build-artifacts.test.ts` |
+| PWA 图标 192/512 + apple-touch-icon | 已验证完成 | `public/*.png`；`npm run icons` |
+| iPad 布局 lg 断点 / Safe Area / 触控 | 已验证完成 | `AppShell` / `index.css`；E2E `08` |
+| 安装说明 + 更新提示 + 数据说明 | 已验证完成 | `InstallStarDeskSection` / `PwaUpdateNotice` / 设置页 |
+| epoch Safari 补检轮询 | 已验证完成 | `epoch.ts` + Vitest |
+| WebKit iPad E2E | 已验证完成 | `e2e/08-ipad-pwa.spec.ts`，16 用例 |
+| 真实 iPad Safari 实机 | 已实现待验证 | `docs/IPAD_ACCEPTANCE_CHECKLIST.md`（用户勾选） |
+
+详见 `docs/IPAD_PWA_DELIVERY_REPORT.md`。

@@ -181,3 +181,68 @@ body {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
+
+/* ============================================================
+   PWA / iPad：Safe Area、触控目标、非 hover 设备上的操作可见性
+   ============================================================ */
+
+.sd-safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.sd-safe-x {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+.sd-safe-inset {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+.sd-app-shell {
+  min-height: 100%;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.sd-topbar {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+.sd-toast-stack {
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+/* 主要图标按钮：触控区域 ≥ 44×44 */
+.sd-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 桌面 hover 时显示次要操作；触控设备始终可见 */
+.sd-reveal-on-hover {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sd-reveal-on-hover {
+    opacity: 0;
+  }
+  .group:hover .sd-reveal-on-hover,
+  .group:focus-within .sd-reveal-on-hover {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sd-reveal-on-hover {
+    opacity: 1;
+  }
+}

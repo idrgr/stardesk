@@ -25,6 +25,7 @@ export function AppShell() {
   // Ctrl/Cmd + K 打开搜索；输入框/编辑器获得焦点时不抢占。
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.isComposing) return
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         const el = e.target as HTMLElement | null
         if (
@@ -56,27 +57,27 @@ export function AppShell() {
   }, [isStale])
 
   return (
-    <div className="flex h-full">
-      {/* 桌面侧栏 */}
-      <div className="hidden h-full shrink-0 md:block">
-        <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((c) => !c)} />
+    <div className="flex h-full min-h-0 sd-app-shell">
+      {/* 桌面 / iPad 横屏（≥1024px）侧栏 */}
+      <div className="hidden h-full shrink-0 lg:block">
+        <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((c) => !c)} onNavigate={() => setMobileNavOpen(false)} />
       </div>
 
-      {/* 移动端抽屉导航 */}
+      {/* 平板竖屏与手机：抽屉导航 */}
       {mobileNavOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
+        <div className="fixed inset-0 z-40 lg:hidden sd-safe-inset">
           <div
             className="absolute inset-0 bg-black/50"
             aria-hidden="true"
             onClick={() => setMobileNavOpen(false)}
           />
           <div className="absolute inset-y-0 left-0 w-[260px] shadow-2xl">
-            <Sidebar collapsed={false} onToggle={() => undefined} showCollapseToggle={false} />
+            <Sidebar collapsed={false} onToggle={() => undefined} showCollapseToggle={false} onNavigate={() => setMobileNavOpen(false)} />
           </div>
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col sd-safe-x">
         <EpochNotice />
         {space === 'demo' && (
           <div className="flex items-center justify-between gap-2 border-b border-warning/30 bg-warning/10 px-4 py-1.5 text-xs text-warning">

@@ -7,6 +7,7 @@ import { DataProvider } from './app/data-context'
 import { EpochProvider } from './app/epoch-context'
 import { SettingsProvider } from './app/settings-context'
 import { ToastProvider } from './components/ui/Toast'
+import { PwaUpdateNotice } from '@/components/shared/PwaUpdateNotice'
 import './styles/index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
           <EpochProvider>
             <SettingsProvider>
               <ToastProvider>
+                <PwaUpdateNotice />
                 <App />
               </ToastProvider>
             </SettingsProvider>

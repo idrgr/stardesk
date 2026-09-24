@@ -43,6 +43,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   const navigate = useNavigate()
   const [keyword, setKeyword] = useState('')
   const [index, setIndex] = useState(0)
+  const [composing, setComposing] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const tasks = useLiveQuery(() => queryTasks(db, { includeDone: true }), [db]) ?? []
@@ -103,12 +104,6 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
       } else if (e.key === 'ArrowUp') {
         e.preventDefault()
         setIndex((i) => Math.max(i - 1, 0))
-      } else if (e.key === 'Enter') {
-        const target = results[index]
-        if (target) {
-          navigate(target.to)
-          onClose()
-        }
       }
     }
     document.addEventListener('keydown', onKeyDown)
@@ -129,6 +124,18 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
             ref={inputRef}
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            onCompositionStart={() => setComposing(true)}
+            onCompositionEnd={() => setComposing(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !composing && !e.nativeEvent.isComposing) {
+                const target = results[index]
+                if (target) {
+                  e.preventDefault()
+                  navigate(target.to)
+                  onClose()
+                }
+              }
+            }}
             placeholder="搜索任务、笔记、资源、目标、项目…"
             className="h-12 flex-1 bg-transparent text-sm text-foreground placeholder:text-foreground-muted focus:outline-none"
           />

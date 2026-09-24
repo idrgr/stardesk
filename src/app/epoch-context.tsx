@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { useData } from './data-context'
 import { getDataEpoch } from '@/data/db/db'
-import { isEpochStale, subscribeEpochChange } from '@/data/db/epoch'
+import { isEpochStale, subscribeEpochChange, attachEpochVisibilityPoll } from '@/data/db/epoch'
 
 interface EpochContextValue {
   /** 数据空间已被其他标签页完整替换，本标签页的写入被拒绝。 */
@@ -39,6 +39,8 @@ export function EpochProvider({ children }: { children: ReactNode }) {
       /* 初始化失败时忽略，写入守卫仍会阻止脏写 */
     })
 
+    const stopPoll = attachEpochVisibilityPoll(db.name)
+
     const off = subscribeEpochChange(db.name, (detail) => {
       if (cancelled) return
       setIsStale(detail.stale)
@@ -47,6 +49,7 @@ export function EpochProvider({ children }: { children: ReactNode }) {
 
     return () => {
       cancelled = true
+      stopPoll()
       off()
     }
   }, [db, space])

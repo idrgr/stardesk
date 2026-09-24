@@ -6,8 +6,12 @@
   "description": "星枢 StarDesk：个人工作台",
   "scripts": {
     "dev": "vite",
+    "dev:host": "vite --host",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "build:pages": "node scripts/build-pages.mjs",
+    "preview:pages": "vite preview --host --base /stardesk/ --strictPort --port 4173",
+    "preview": "vite preview --host",
+    "icons": "node scripts/generate-pwa-icons.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -43,9 +47,11 @@
     "@vitest/coverage-v8": "^5.0.1",
     "fake-indexeddb": "^6.2.5",
     "jsdom": "^30.1.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.3.0",
+    "vite-plugin-pwa": "^1.3.0",
     "vitest": "^5.0.1"
   }
 }

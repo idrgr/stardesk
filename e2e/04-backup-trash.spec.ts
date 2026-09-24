@@ -14,7 +14,7 @@ async function exportBackup(page: Page): Promise<string> {
   const download = await downloadPromise
   const target = join(workDir, download.suggestedFilename())
   await download.saveAs(target)
-  await expect(page.getByText('备份文件已生成')).toBeVisible()
+  await expect(page.getByText(/备份文件已生成/)).toBeVisible()
   return target
 }
 
