@@ -1,9 +1,13 @@
-# StarDesk iPad 实机验收清单
+## 实机 HTTPS 验收（GitHub Pages）
 
-> **说明**：下列项目需在**真实 iPad + Safari**（或已添加到主屏幕的 Web App）上由用户自行勾选。  
-> Playwright WebKit / viewport 自动化通过 **不能** 等同于本清单全部完成。
+部署成功后，在 iPad Safari 打开（将 `<用户名>` 替换为你的 GitHub 用户名）：
 
-## 环境与访问
+`https://<用户名>.github.io/stardesk/#/dashboard`
+
+然后按本清单逐项勾选。**WebKit 自动化通过 ≠ 本清单完成。**
+
+---
+
 
 - [ ] 在 iPad Safari 中通过 **HTTPS** 或可信局域网地址打开 StarDesk（非仅 `localhost`）
 - [ ] 页面可正常加载，无证书/混合内容错误
