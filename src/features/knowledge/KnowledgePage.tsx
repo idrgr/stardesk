@@ -159,7 +159,7 @@ export function KnowledgePage() {
                     <p className="truncate text-sm font-medium text-foreground hover:text-accent">{n.title}</p>
                     {n.bodyMarkdown && <p className="mt-1 line-clamp-2 text-xs text-foreground-muted">{n.bodyMarkdown}</p>}
                   </button>
-                  <div className="flex shrink-0 gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="flex shrink-0 gap-1 sd-reveal-on-hover">
                     <button type="button" onClick={() => toggleNotePin(db, n.id)} aria-label={n.pinned ? '取消置顶' : '置顶'} className="rounded p-1 text-foreground-muted hover:text-foreground">
                       <Pin className={cn('h-3.5 w-3.5', n.pinned && 'fill-current text-accent')} />
                     </button>
@@ -198,7 +198,7 @@ export function KnowledgePage() {
                   {r.description && <span className="truncate">{r.description}</span>}
                 </div>
               </div>
-              <div className="flex shrink-0 items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+              <div className="flex shrink-0 items-center gap-1 sd-reveal-on-hover">
                 <button type="button" onClick={() => toggleRead(r)} aria-label={r.readStatus === 'read' ? '标记待查看' : '标记已查看'} className="rounded p-1.5 text-foreground-muted hover:text-foreground">
                   <Check className={cn('h-3.5 w-3.5', r.readStatus === 'read' && 'text-success')} />
                 </button>

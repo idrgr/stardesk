@@ -2,9 +2,9 @@ import { expect, type Page } from '@playwright/test'
 
 const BOOT_TIMEOUT = 30000
 
-/** 视口宽度 <768px 时桌面侧栏隐藏，需通过顶栏打开移动抽屉。 */
+/** 视口宽度 <1024px 时使用抽屉导航（手机 + iPad 竖屏）。 */
 export async function isMobileShell(page: Page): Promise<boolean> {
-  return page.evaluate(() => window.matchMedia('(max-width: 767px)').matches)
+  return page.evaluate(() => window.matchMedia('(max-width: 1023px)').matches)
 }
 
 /** 工作台就绪：顶栏「快速新增」可见（含仅图标的窄屏顶栏）。 */
@@ -47,7 +47,7 @@ export async function nav(page: Page, label: string): Promise<void> {
   const link = page.getByRole('link', { name: label, exact: true }).first()
   if (await isMobileShell(page)) {
     const drawerOpen = await page
-      .locator('.fixed.inset-0.z-40.md\\:hidden')
+      .locator('.fixed.inset-0.z-40.lg\\:hidden')
       .getByRole('link', { name: label, exact: true })
       .first()
       .isVisible()
@@ -57,6 +57,12 @@ export async function nav(page: Page, label: string): Promise<void> {
     }
   }
   await link.click()
+  if (await isMobileShell(page)) {
+    await page
+      .locator('.fixed.inset-0.z-40.lg\\:hidden')
+      .waitFor({ state: 'hidden', timeout: 5000 })
+      .catch(() => undefined)
+  }
 }
 
 /** 通过顶栏「快速新增」创建一个任务。 */

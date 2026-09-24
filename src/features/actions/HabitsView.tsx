@@ -154,7 +154,7 @@ export function HabitsView() {
                     本周{' '}
                     {week.rate == null ? '暂无安排' : `${week.completed}/${week.opportunities}`}
                   </span>
-                  <span className="ml-auto flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <span className="ml-auto flex gap-1 sd-reveal-on-hover">
                     <button
                       type="button"
                       onClick={() => (paused ? handleResume(h) : handlePause(h))}

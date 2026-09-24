@@ -90,6 +90,7 @@ export function Dialog({
 
   return createPortal(
     <div
+      data-sd-overlay="dialog"
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:p-8"
       role="presentation"
       onMouseDown={(e) => {

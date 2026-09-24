@@ -4,7 +4,7 @@ import { newId } from '@/lib/id'
 import { startFocus, completeFocus, getActiveSession } from './repositories/focus'
 import { convertFocusToActivity, findActivityByFocusSession, createActivity } from './repositories/activities'
 import { createTask, getTask } from './repositories/tasks'
-import { markEpochStale, isEpochStale, StaleDataError, subscribeEpochChange, setKnownEpoch, publishEpochChange, getKnownEpoch } from './db/epoch'
+import { markEpochStale, isEpochStale, StaleDataError, subscribeEpochChange, setKnownEpoch, publishEpochChange, getKnownEpoch, refreshEpochStaleFromHints } from './db/epoch'
 import { exportBackup, normalizeRestoredSessions, importBackup } from './backup/backup'
 
 let db: StarDeskDB
@@ -160,6 +160,14 @@ describe('dataEpoch 跨标签页失效', () => {
     publishEpochChange(db.name, 'epoch-new')
     expect(getKnownEpoch(db.name)).toBe('epoch-new')
     expect(isEpochStale(db.name)).toBe(false)
+  })
+
+  it('refreshEpochStaleFromHints 从 localStorage 补检 epoch 变化', () => {
+    const name = `poll-${newId()}`
+    setKnownEpoch(name, 'epoch-a')
+    localStorage.setItem(`stardesk.epoch.${name}`, JSON.stringify({ epoch: 'epoch-b' }))
+    refreshEpochStaleFromHints(name)
+    expect(isEpochStale(name)).toBe(true)
   })
 })
 

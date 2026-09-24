@@ -8,13 +8,13 @@
     "tasks": 750,
     "activities": 250,
     "habitCheckins": 0,
-    "elapsedMs": 60
+    "elapsedMs": 115
   },
   "timingsMs": {
-    "dashboard": 639,
-    "actions-filter": 2407,
-    "search": 199,
-    "domain": 361
+    "dashboard": 784,
+    "actions-filter": 1944,
+    "search": 230,
+    "domain": 391
   },
   "notes": []
 }

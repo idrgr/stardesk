@@ -111,7 +111,7 @@ export function TaskItem({
         )}
       </div>
 
-      <div className="flex shrink-0 items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+      <div className="flex shrink-0 items-center gap-1 sd-reveal-on-hover focus-within:opacity-100">
         {task.priority !== 'medium' && (
           <Badge tone={task.priority === 'high' ? 'danger' : 'neutral'} className="mr-1">
             {TASK_PRIORITY_LABEL[task.priority]}
@@ -126,7 +126,7 @@ export function TaskItem({
           size="icon"
           onClick={() => onDelete(task)}
           aria-label={`删除任务：${task.title}`}
-          className="h-7 w-7 text-foreground-muted hover:text-danger"
+          className="sd-touch-target h-7 w-7 text-foreground-muted hover:text-danger"
         >
           <Trash2 className="h-3.5 w-3.5" />
         </Button>

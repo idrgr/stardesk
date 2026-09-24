@@ -30,7 +30,14 @@ export function Drawer({
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     )
     ;(first ?? panelRef.current)?.focus()
-    return () => previouslyFocused.current?.focus?.()
+  }, [open])
+
+  useEffect(() => {
+    if (open) return
+    const prev = previouslyFocused.current
+    if (prev && typeof prev.focus === 'function') {
+      window.setTimeout(() => prev.focus(), 0)
+    }
   }, [open])
 
   useEffect(() => {
@@ -48,7 +55,7 @@ export function Drawer({
   if (!open) return null
 
   return createPortal(
-    <div className="fixed inset-0 z-50" role="presentation">
+    <div className="fixed inset-0 z-50" role="presentation" data-sd-overlay="drawer">
       <div
         className="absolute inset-0 bg-black/50"
         aria-hidden="true"

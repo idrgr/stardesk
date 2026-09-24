@@ -250,7 +250,7 @@ function TaskRow({ task, pinned, onToggle, onPin }: { task: Task; pinned: boolea
         type="button"
         onClick={() => onPin(task)}
         aria-label={pinned ? '取消重点' : '设为今日重点'}
-        className={cn('rounded p-1 transition-colors', pinned ? 'text-warning' : 'text-foreground-muted opacity-0 hover:text-foreground group-hover:opacity-100')}
+        className={cn('rounded p-1 transition-colors sd-touch-target sd-reveal-on-hover', pinned ? 'text-warning opacity-100' : 'text-foreground-muted hover:text-foreground')}
       >
         <Star className={cn('h-3.5 w-3.5', pinned && 'fill-current')} />
       </button>

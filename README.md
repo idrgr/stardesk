@@ -1,6 +1,6 @@
 # 星枢 StarDesk
 
-一个单人使用、桌面优先、兼顾手机的中文个人工作台。帮助你：
+一个单人使用、桌面优先、兼顾手机与 **iPad PWA** 的中文个人工作台。帮助你：
 把长期方向拆成近期计划，把计划落实为今日行动，再通过记录和复盘不断调整。
 
 深色未来感界面，数据保存在你自己的浏览器里，不登录、不上传、不收费。
@@ -28,6 +28,7 @@
 ```bash
 npm install      # 安装依赖
 npm run dev      # 启动开发版（默认 http://localhost:5173）
+npm run dev:host # 监听 0.0.0.0，供 iPad/手机在同一局域网访问
 ```
 
 生产构建与预览：
@@ -41,16 +42,37 @@ npm run preview  # 预览生产构建
 
 ```bash
 npm run test         # 运行单元/组件测试（Vitest）
-npm run test:e2e     # Playwright 浏览器 E2E（需本机 Edge）
+npm run test:e2e     # Playwright：Edge 回归 28 + WebKit iPad 19（共 47 用例）
 npm run typecheck    # 仅类型检查
+npm run icons        # 从 favicon.svg 再生 PWA PNG 图标
 ```
+
+## PWA 与 iPad
+
+- 生产构建集成 **vite-plugin-pwa**：`manifest.webmanifest`、`sw.js`（预缓存 app shell，**不**缓存 IndexedDB 数据）。
+- 「添加到主屏幕」需 **HTTPS** 安全上下文（开发机 localhost 除外）；局域网 HTTP 主要用于布局与功能调试。
+- 数据仍保存在当前浏览器 / Web App 的 **IndexedDB** 中，不会自动 iCloud 备份；请定期 JSON 导出。
+- 实机验收清单：`docs/IPAD_ACCEPTANCE_CHECKLIST.md`；分支交付说明：`docs/IPAD_PWA_DELIVERY_REPORT.md`。
+
+### GitHub Pages（正式生产）
+
+仓库名 **`stardesk`**，Project Pages 地址：
+
+**https://idrgr.github.io/stardesk/#/dashboard**
+
+1. GitHub：**Settings → Pages → Build and deployment → Source → GitHub Actions**
+2. 推送 **`main`** 后自动部署（也可 Actions 里 **workflow_dispatch** 手动触发）
+3. 生产构建 `GITHUB_PAGES=true`，Vite `base` 为 `/stardesk/`（本地 `npm run dev` 仍为 `/`）
+4. 本地子路径 smoke：`npm run build:pages` → `npm run preview:pages` → `http://localhost:4173/stardesk/#/`
+
+**v1.1.0** 起正式版与 Pages 同源为 `main`；实机清单见 `docs/IPAD_ACCEPTANCE_CHECKLIST.md`。
 
 ## 数据存在哪里
 
 数据保存在**当前浏览器的 IndexedDB** 中（数据库名 `stardesk`，演示空间为 `stardesk-demo`），
 仅本地存储，不会上传到任何服务器。
 
-> 更换浏览器、设备或访问地址前，请先在「设置与数据」里导出备份，再在新环境恢复。
+> 更换浏览器、删除 Web App、清除网站数据或访问地址前，请先在「设置与数据」里导出备份，再在新环境恢复。
 
 ## 首次使用
 
@@ -70,10 +92,10 @@ React + TypeScript + Vite · React Router（HashRouter）· Tailwind CSS 4 · De
 
 ## 首版限制
 
-- 无账号、无跨设备同步、无云存储（数据只在本浏览器）。
+- 无账号、无跨设备同步、无云存储（数据只在本浏览器 / Web App 本地环境）。
 - 尚未接入 AI、外部日历、可穿戴设备与系统通知。
 - 不支持文件附件、图片上传与复杂富文本。
-- 无 PWA 离线启动、桌面安装包与原生手机 App。
+- 无原生 iOS App；iPad 通过 **PWA（添加到主屏幕）** 使用，实机验收见 `docs/IPAD_ACCEPTANCE_CHECKLIST.md`。
 
 ## 目录结构
 

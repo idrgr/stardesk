@@ -14,6 +14,7 @@ import { softDeleteProjects, listProjects } from '@/data/repositories/projects'
 import { softDeleteNotes, queryNotes } from '@/data/repositories/notes'
 import { formatDateTimeZh } from '@/lib/date'
 import { cn } from '@/lib/cn'
+import { InstallStarDeskSection } from './InstallStarDeskSection'
 import type { BackupEnvelope } from '@/data/backup/backup'
 
 const TIMEZONES = [
@@ -75,7 +76,7 @@ export function SettingsPage() {
       a.remove()
       URL.revokeObjectURL(url)
       await updateSettings(db, { lastExportInitiatedAt: new Date().toISOString() })
-      toast('备份文件已生成', 'success')
+      toast('已发起下载 · 备份文件已生成', 'success')
     } catch (e) {
       toast(e instanceof Error ? e.message : '导出失败', 'error')
     }
@@ -228,7 +229,7 @@ export function SettingsPage() {
       <Section title="数据管理">
         <p className="text-sm text-foreground-secondary">
           <Database className="mr-1 inline h-4 w-4" />
-          数据保存在这个浏览器中（IndexedDB）。更换浏览器、设备或访问地址前，请先导出备份。
+          数据保存在这个浏览器 / Web App 对应的本地存储中（IndexedDB），不会自动上传云端或备份到 iCloud。更换浏览器、删除 Web App、清除网站数据或访问地址前，请先导出 JSON 备份。
         </p>
 
         <div className="flex flex-wrap gap-2">
@@ -278,6 +279,8 @@ export function SettingsPage() {
           </div>
         )}
       </Section>
+
+      <InstallStarDeskSection />
 
       {/* 回收站 */}
       <Section title={`回收站（${trashCount}）`}>

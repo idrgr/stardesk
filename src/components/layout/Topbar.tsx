@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { Kbd } from '@/components/ui/Spinner'
 import { useSettings } from '@/app/settings-context'
 import { todayInTimeZone, formatDateFullZh } from '@/lib/date'
+import { modifierKeyLabel } from '@/lib/pwa'
 import type { Theme } from '@/domain/enums'
 
 const SECTION_TITLE: Record<string, string> = {
@@ -61,12 +62,12 @@ export function Topbar({
   }
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-3 border-b border-divider bg-surface/30 px-4 backdrop-blur-sm md:px-6">
+    <header className="sd-topbar sd-safe-top flex h-16 shrink-0 items-center gap-3 border-b border-divider bg-surface/30 px-4 backdrop-blur-sm lg:px-6">
       <button
         type="button"
         onClick={onOpenMobileNav}
         aria-label="打开导航"
-        className="rounded-lg p-2 text-foreground-secondary hover:bg-surface md:hidden"
+        className="sd-touch-target rounded-lg p-2 text-foreground-secondary hover:bg-surface lg:hidden"
       >
         <Menu className="h-5 w-5" />
       </button>
@@ -86,7 +87,7 @@ export function Topbar({
         <Search className="h-4 w-4" />
         <span className="flex-1 text-left">搜索</span>
         <span className="flex items-center gap-0.5">
-          <Kbd>Ctrl</Kbd>
+          <Kbd>{modifierKeyLabel()}</Kbd>
           <Kbd>K</Kbd>
         </span>
       </button>
@@ -94,7 +95,7 @@ export function Topbar({
         type="button"
         onClick={onSearch}
         aria-label="搜索"
-        className="rounded-lg p-2 text-foreground-secondary hover:bg-surface sm:hidden"
+        className="sd-touch-target rounded-lg p-2 text-foreground-secondary hover:bg-surface sm:hidden"
       >
         <Search className="h-5 w-5" />
       </button>
@@ -109,7 +110,7 @@ export function Topbar({
         onClick={onFocus}
         aria-label="专注"
         title="专注"
-        className="rounded-lg p-2 text-foreground-secondary hover:bg-surface"
+        className="sd-touch-target rounded-lg p-2 text-foreground-secondary hover:bg-surface"
       >
         <Timer className="h-5 w-5" />
       </button>
@@ -119,7 +120,7 @@ export function Topbar({
         onClick={cycleTheme}
         aria-label={`切换主题（当前：${theme}）`}
         title="切换主题"
-        className="rounded-lg p-2 text-foreground-secondary hover:bg-surface"
+        className="sd-touch-target rounded-lg p-2 text-foreground-secondary hover:bg-surface"
       >
         <ThemeIcon theme={theme} />
       </button>

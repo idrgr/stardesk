@@ -106,7 +106,35 @@
 - ✅ `tsc --noEmit` 通过、`vite build` 通过（路由拆包）
 - ✅ `vitest run` 84 用例通过
 - ✅ 数据库 v1→v4 增量迁移完整，无删库
-- ⚠️ 真实浏览器端到端（Playwright）未接入——环境无浏览器自动化，相关多断点/多标签页实机验证标注为「待验证」
+- ⚠️ 真实浏览器端到端（Playwright）— **V1.1.0 已接入**：Edge 28 + WebKit iPad 19（见 `feat/ipad-pwa` / main）
+
+## V1.1.0 — iPad PWA 正式版（2026-09-24）
+
+| 任务 | 状态 | 验证证据 |
+| --- | --- | --- |
+| PWA manifest + SW + 图标 | 已验证完成 | Vitest `src/pwa/`；`npm run build` |
+| iPad 布局 / Safe Area / 触控 | 已验证完成 | E2E `08`；CSS `index.css` |
+| GitHub Pages HTTPS | 已验证完成 | `.github/workflows/deploy-pages.yml`；生产 URL smoke |
+| 后台恢复触控（fix/ipad-resume-touch） | 已验证完成 | Vitest `app-resume.test.ts`；E2E `10`；**真实 iPad 用户验收** |
+| Vitest 全量 | 已验证完成 | **115** 用例 |
+| Playwright 全量 | 已验证完成 | **47** 用例（Edge 28 + WebKit 19） |
+| 真实 iPad 部分清单 | 已实现待验证 | `docs/IPAD_ACCEPTANCE_CHECKLIST.md`（JSON/断网/键盘等未全勾） |
+
+**V1.1.0 正式发布** — 详见 `docs/V1_1_RELEASE_REPORT.md`。
+
+## feat/ipad-pwa（已合并 main @ v1.1.0）
+
+| 任务 | 状态 | 验证证据 |
+| --- | --- | --- |
+| vite-plugin-pwa + manifest + SW | 已验证完成 | `vite.config.ts`；Vitest `src/pwa/build-artifacts.test.ts` |
+| PWA 图标 192/512 + apple-touch-icon | 已验证完成 | `public/*.png`；`npm run icons` |
+| iPad 布局 lg 断点 / Safe Area / 触控 | 已验证完成 | `AppShell` / `index.css`；E2E `08` |
+| 安装说明 + 更新提示 + 数据说明 | 已验证完成 | `InstallStarDeskSection` / `PwaUpdateNotice` |
+| epoch Safari 补检轮询 | 已验证完成 | `epoch.ts` + Vitest |
+| WebKit iPad E2E | 已验证完成 | `e2e/08` + `e2e/10` |
+| 真实 iPad：PWA + 触控恢复 | 已验证完成 | 用户实机；清单顶部记录 |
+
+详见 `docs/IPAD_PWA_DELIVERY_REPORT.md`。
 
 ## V1 Final QA & Closeout（2026-09-24）
 

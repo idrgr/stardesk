@@ -44,7 +44,7 @@ export function EpochNotice() {
 
       {/* 阻断式说明弹窗 */}
       {modalOpen && !dismissed && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4" data-sd-overlay="epoch-modal">
           <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
           <div
             role="alertdialog"
