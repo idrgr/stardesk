@@ -1,0 +1,27 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+Thumbs.db
+Desktop.ini
+coverage
+*.log
+.vite
+test-results
+e2e-report
+playwright-report
+blob-report
+playwright/.cache
+e2e-results.json
+
+# Secrets / local env (keep e2e-evidence and docs tracked)
+.env
+.env.*
+!.env.example
+
+# Editor / IDE caches (not project source)
+.idea/
+*.swp
+*.swo
+*~

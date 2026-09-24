@@ -1,0 +1,20 @@
+{
+  "environment": {
+    "userAgent": "msedge-desktop",
+    "viewport": "1440x900",
+    "note": "Windows + Microsoft Edge (Playwright channel: msedge)"
+  },
+  "seed": {
+    "tasks": 750,
+    "activities": 250,
+    "habitCheckins": 0,
+    "elapsedMs": 60
+  },
+  "timingsMs": {
+    "dashboard": 639,
+    "actions-filter": 2407,
+    "search": 199,
+    "domain": 361
+  },
+  "notes": []
+}

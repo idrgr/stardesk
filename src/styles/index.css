@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ============================================================
+   星枢 StarDesk — 设计 Token
+   深空 / 精密仪表 / 玻璃层次 / 冷色微光 / 轨道 / 秩序
+   所有组件引用语义 Token，不直接使用十六进制色值。
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  --sd-background: #080d16;
+  --sd-surface: #101a29;
+  --sd-surface-raised: #162235;
+  --sd-border: #2b3d55;
+  --sd-divider: rgba(148, 163, 184, 0.14);
+  --sd-text-primary: #eef5ff;
+  --sd-text-secondary: #a7b7cd;
+  --sd-text-muted: #8495ac;
+  --sd-accent: #5de4f5;
+  --sd-accent-foreground: #06222a;
+  --sd-accent-secondary: #8c9bff;
+  --sd-success: #5bd6a0;
+  --sd-warning: #f2c46d;
+  --sd-danger: #ff8396;
+  --sd-focus: #5de4f5;
+  --sd-backdrop: rgba(4, 8, 15, 0.62);
+  --sd-scrollbar: #26364c;
+  --sd-glow: rgba(93, 228, 245, 0.06);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --sd-background: #f3f6fb;
+  --sd-surface: #ffffff;
+  --sd-surface-raised: #ffffff;
+  --sd-border: #d7dee9;
+  --sd-divider: rgba(23, 38, 60, 0.12);
+  --sd-text-primary: #17263c;
+  --sd-text-secondary: #3d4f66;
+  --sd-text-muted: #4b5563;
+  --sd-accent: #006f86;
+  --sd-accent-foreground: #ffffff;
+  --sd-accent-secondary: #4f5ec2;
+  --sd-success: #1f9d6a;
+  --sd-warning: #b8862a;
+  --sd-danger: #d6455c;
+  --sd-focus: #006f86;
+  --sd-backdrop: rgba(15, 23, 42, 0.4);
+  --sd-scrollbar: #c3ccd9;
+  --sd-glow: rgba(0, 111, 134, 0.05);
+}
+
+/* 领域 / 模块色板（稳定枚举，模块 colorKey 引用） */
+@theme inline {
+  --color-background: var(--sd-background);
+  --color-surface: var(--sd-surface);
+  --color-surface-raised: var(--sd-surface-raised);
+  --color-border: var(--sd-border);
+  --color-divider: var(--sd-divider);
+  --color-foreground: var(--sd-text-primary);
+  --color-foreground-secondary: var(--sd-text-secondary);
+  --color-foreground-muted: var(--sd-text-muted);
+  --color-accent: var(--sd-accent);
+  --color-accent-foreground: var(--sd-accent-foreground);
+  --color-accent-secondary: var(--sd-accent-secondary);
+  --color-success: var(--sd-success);
+  --color-warning: var(--sd-warning);
+  --color-danger: var(--sd-danger);
+  --color-focus: var(--sd-focus);
+
+  --color-domain-growth: #4d9fff;
+  --color-domain-career: #8c9bff;
+  --color-domain-hobbies: #f2b35d;
+  --color-domain-fitness: #4ad9a9;
+  --color-domain-travel: #5de4f5;
+  --color-domain-finance: #f2c46d;
+  --color-domain-life: #ff9fb2;
+  --color-domain-study: #b48cff;
+  --color-domain-other: #a7b7cd;
+
+  --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC",
+    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Consolas,
+    "Liberation Mono", Menlo, monospace;
+}
+
+@theme {
+  --radius-lg: 16px;
+  --radius-md: 10px;
+}
+
+/* ============================================================
+   全局基础样式
+   ============================================================ */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--sd-background);
+  color: var(--sd-text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 背景网格与局部光晕（透明、不截获事件） */
+.stardesk-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, var(--sd-glow), transparent 60%),
+    linear-gradient(
+      to right,
+      var(--sd-divider) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, var(--sd-divider) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    48px 48px,
+    48px 48px;
+  opacity: 0.35;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--sd-accent) 30%, transparent);
+}
+
+/* 焦点环：键盘焦点清晰可见 */
+:focus-visible {
+  outline: 2px solid var(--sd-focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* 滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sd-scrollbar) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--sd-scrollbar);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 减少动效 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 等宽数字 */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
