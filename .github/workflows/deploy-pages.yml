@@ -1,12 +1,12 @@
 # Deploy StarDesk to GitHub Pages (Project site: /stardesk/)
-# Source branch for RC: feat/ipad-pwa — do not merge to main until iPad sign-off.
+# Production: push to main (v1.1.0+). RC branch feat/ipad-pwa no longer auto-deploys.
 
 name: Deploy StarDesk to GitHub Pages
 
 on:
   push:
     branches:
-      - feat/ipad-pwa
+      - main
   workflow_dispatch:
 
 permissions:
