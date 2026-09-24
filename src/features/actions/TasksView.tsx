@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { Plus, Search, Inbox } from 'lucide-react'
@@ -17,6 +17,7 @@ import type { TaskPriority, TaskStatus } from '@/domain/enums'
 import { TaskItem } from './TaskItem'
 import { TaskFormDialog } from './TaskFormDialog'
 import { TaskDetailDrawer } from './TaskDetailDrawer'
+import { useTransientUiDismiss } from '@/hooks/useTransientUiDismiss'
 import { cn } from '@/lib/cn'
 
 type View = 'all' | 'today' | 'week' | 'overdue' | 'done'
@@ -57,6 +58,13 @@ export function TasksView() {
   useEffect(() => {
     setKeyword(searchParams.get('q') ?? '')
   }, [searchParams])
+
+  const dismissTaskOverlays = useCallback(() => {
+    setFormOpen(false)
+    setEditing(null)
+    setDetailId(null)
+  }, [])
+  useTransientUiDismiss(dismissTaskOverlays)
 
   const filtered = useMemo(() => {
     let list = tasks

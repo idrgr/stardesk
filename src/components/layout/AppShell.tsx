@@ -1,5 +1,4 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Sidebar } from './Sidebar'
 import { Topbar } from './Topbar'
 import { TaskFormDialog } from '@/features/actions/TaskFormDialog'
@@ -10,6 +9,8 @@ import { Dialog } from '@/components/ui/Dialog'
 import { useData } from '@/app/data-context'
 import { useEpoch } from '@/app/epoch-context'
 import { useLocalStorage } from '@/lib/useLocalStorage'
+import { useTransientUiDismiss } from '@/hooks/useTransientUiDismiss'
+import { Outlet, useLocation } from 'react-router-dom'
 
 export function AppShell() {
   const { space, switchSpace } = useData()
@@ -56,6 +57,15 @@ export function AppShell() {
     if (isStale) setFocusOpen(false)
   }, [isStale])
 
+  const dismissShellOverlays = useCallback(() => {
+    setMobileNavOpen(false)
+    setQuickAddOpen(false)
+    setSearchOpen(false)
+    setFocusOpen(false)
+  }, [])
+
+  useTransientUiDismiss(dismissShellOverlays)
+
   return (
     <div className="flex h-full min-h-0 sd-app-shell">
       {/* 桌面 / iPad 横屏（≥1024px）侧栏 */}
@@ -65,7 +75,7 @@ export function AppShell() {
 
       {/* 平板竖屏与手机：抽屉导航 */}
       {mobileNavOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden sd-safe-inset">
+        <div className="fixed inset-0 z-40 lg:hidden sd-safe-inset" data-sd-overlay="mobile-nav">
           <div
             className="absolute inset-0 bg-black/50"
             aria-hidden="true"

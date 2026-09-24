@@ -8,7 +8,12 @@ import { EpochProvider } from './app/epoch-context'
 import { SettingsProvider } from './app/settings-context'
 import { ToastProvider } from './components/ui/Toast'
 import { PwaUpdateNotice } from '@/components/shared/PwaUpdateNotice'
+import { initAppResume } from '@/lib/app-resume'
+import { initTouchDebug } from '@/lib/touch-debug'
 import './styles/index.css'
+
+initAppResume()
+initTouchDebug()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

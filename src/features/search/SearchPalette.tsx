@@ -115,7 +115,7 @@ export function SearchPalette({ open, onClose }: { open: boolean; onClose: () =>
   if (!open) return null
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[12vh]" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[12vh]" data-sd-overlay="search" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}>
       <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
       <div role="dialog" aria-modal="true" aria-label="搜索" className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-surface-raised shadow-2xl">
         <div className="flex items-center gap-2.5 border-b border-divider px-4">

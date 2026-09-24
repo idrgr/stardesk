@@ -224,6 +224,13 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  touch-action: manipulation;
+}
+
+button,
+a[href],
+[role="button"] {
+  touch-action: manipulation;
 }
 
 /* 桌面 hover 时显示次要操作；触控设备始终可见 */

@@ -38,7 +38,7 @@ export default defineConfig({
     },
     {
       name: 'webkit-ipad-pwa',
-      testMatch: /08-ipad-pwa\.spec\.ts/,
+      testMatch: /08-ipad-pwa\.spec\.ts|10-ipad-resume-touch\.spec\.ts/,
       use: {
         ...devices['iPad Pro 11'],
         baseURL: BASE_URL,
