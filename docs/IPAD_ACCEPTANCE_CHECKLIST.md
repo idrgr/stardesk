@@ -1,23 +1,43 @@
-## 实机 HTTPS 验收（GitHub Pages）
+## 真实 iPad 验收记录（v1.1.0 发布前）
 
-部署成功后，在 iPad Safari 打开（将 `<用户名>` 替换为你的 GitHub 用户名）：
+**记录日期：** 2026-09-24  
+**访问 URL：** `https://idrgr.github.io/stardesk/#/`（GitHub Pages HTTPS）  
+**设备：** 真实 iPad（用户反馈；具体型号 / iPadOS 版本见下表「备注」）
 
-`https://<用户名>.github.io/stardesk/#/dashboard`
+### 已真实 iPad 验证通过
 
-然后按本清单逐项勾选。**WebKit 自动化通过 ≠ 本清单完成。**
+| 项目 | 结果 |
+|------|------|
+| StarDesk 可在真实 iPad 上正常使用 | ✅ 通过 |
+| Safari **添加到主屏幕** / 从主屏幕启动 **standalone PWA** | ✅ 通过 |
+| 此前 **后台 / 重新打开后点击不灵敏**（`fix/ipad-resume-touch`） | ✅ 修复后回归正常 |
+| 修复部署到 Pages 后再次实机点击与导航 | ✅ 通过 |
+
+**说明：** 以上为用户已明确反馈的项；其余清单条目若无单独勾选，仍为 **未验证** 或 **待验证**。
 
 ---
 
+## 实机 HTTPS 验收（GitHub Pages）
 
-- [ ] 在 iPad Safari 中通过 **HTTPS** 或可信局域网地址打开 StarDesk（非仅 `localhost`）
-- [ ] 页面可正常加载，无证书/混合内容错误
+部署成功后，在 iPad Safari 打开：
+
+`https://idrgr.github.io/stardesk/#/dashboard`
+
+然后按本清单逐项勾选。**WebKit 自动化通过 ≠ 本清单全部完成。**
+
+---
+
+## 环境与基础
+
+- [x] 在 iPad Safari 中通过 **HTTPS** 打开 StarDesk（GitHub Pages）
+- [ ] 页面可正常加载，无证书/混合内容错误（若未单独记录则待确认）
 - [ ] 深色与浅色主题切换正常
 
 ## 安装与 PWA
 
-- [ ] Safari → 分享 → **添加到主屏幕**
+- [x] Safari → 分享 → **添加到主屏幕**（用户已验证）
 - [ ] 主屏幕图标清晰、名称正确（StarDesk / 星枢）
-- [ ] 从主屏幕启动进入 **standalone**（无 Safari 地址栏）
+- [x] 从主屏幕启动进入 **standalone**（用户已验证）
 - [ ] standalone 下顶栏/内容未被刘海或 Home 指示条遮挡（Safe Area）
 
 ## 横屏 / 竖屏
@@ -46,7 +66,7 @@
 
 ## 可靠性与更新
 
-- [ ] 切到后台再返回，专注/表单状态合理
+- [x] 切到后台再返回，**点击与导航仍灵敏**（`fix/ipad-resume-touch` 实机回归）
 - [ ] 断网后从主屏幕再次打开（曾成功加载过）仍可进入应用 shell
 - [ ] 有新版本时出现「重新加载后更新」提示，可稍后或手动刷新
 - [ ] 两个 Safari 标签页同时打开时，完整恢复后另一页出现数据失效提示
@@ -61,6 +81,7 @@
 
 | 项目 | 结果 / 日期 | 设备与 iPadOS 版本 |
 |------|-------------|-------------------|
-| 验收人 | | |
-| 访问 URL | | |
-| 未通过项说明 | | |
+| 验收人 | （用户） | |
+| 访问 URL | https://idrgr.github.io/stardesk/#/ | 2026-09-24 |
+| 触控恢复修复 | fix/ipad-resume-touch → feat/ipad-pwa Pages | 实机通过 |
+| 未通过 / 未测项说明 | JSON 恢复、断网冷启动、PWA 更新提示、外接键盘等待填 | |

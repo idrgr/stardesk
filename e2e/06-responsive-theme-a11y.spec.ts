@@ -1,6 +1,20 @@
 import { test, expect, type Page } from '@playwright/test'
 import { openApp, nav, tab, quickAddTask, expectNoHorizontalOverflow } from './helpers'
 
+async function screenshotEvidence(page: Page, path: string): Promise<void> {
+  let lastErr: unknown
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await page.screenshot({ path, fullPage: false })
+      return
+    } catch (err) {
+      lastErr = err
+      await page.waitForTimeout(250)
+    }
+  }
+  throw lastErr
+}
+
 const VIEWPORTS = [
   { name: '360', width: 360, height: 740 },
   { name: '390', width: 390, height: 844 },
@@ -60,10 +74,7 @@ test.describe('多断点视觉检查', () => {
         await expectNoHorizontalOverflow(page)
         const overflow = await overflowingElements(page)
         expect(overflow, `${p.name} 在 ${vp.name}px 存在超出视口的元素`).toEqual([])
-        await page.screenshot({
-          path: `e2e-evidence/${vp.name}-${p.name}.png`,
-          fullPage: false,
-        })
+        await screenshotEvidence(page, `e2e-evidence/${vp.name}-${p.name}.png`)
       }
     })
   }

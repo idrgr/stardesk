@@ -42,7 +42,7 @@ npm run preview  # 预览生产构建
 
 ```bash
 npm run test         # 运行单元/组件测试（Vitest）
-npm run test:e2e     # Playwright：Edge 回归 + WebKit iPad 模拟（44 用例）
+npm run test:e2e     # Playwright：Edge 回归 28 + WebKit iPad 19（共 47 用例）
 npm run typecheck    # 仅类型检查
 npm run icons        # 从 favicon.svg 再生 PWA PNG 图标
 ```
@@ -54,18 +54,18 @@ npm run icons        # 从 favicon.svg 再生 PWA PNG 图标
 - 数据仍保存在当前浏览器 / Web App 的 **IndexedDB** 中，不会自动 iCloud 备份；请定期 JSON 导出。
 - 实机验收清单：`docs/IPAD_ACCEPTANCE_CHECKLIST.md`；分支交付说明：`docs/IPAD_PWA_DELIVERY_REPORT.md`。
 
-### GitHub Pages（iPad HTTPS 验收）
+### GitHub Pages（正式生产）
 
-仓库名假设为 **`stardesk`**，Project Pages 地址：
+仓库名 **`stardesk`**，Project Pages 地址：
 
-`https://<GitHub用户名>.github.io/stardesk/#/dashboard`
+**https://idrgr.github.io/stardesk/#/dashboard**
 
-1. 在 GitHub：**Settings → Pages → Build and deployment → Source → GitHub Actions**
-2. 推送 `feat/ipad-pwa` 后打开 **Actions → Deploy StarDesk to GitHub Pages**
-3. 生产构建设置 `GITHUB_PAGES=true`，Vite `base` 为 `/stardesk/`（本地 `npm run dev` 仍为 `/`）
-4. 本地子路径 smoke：`npm run build:pages` → `npm run preview:pages` → 打开 `http://localhost:4173/stardesk/#/`
+1. GitHub：**Settings → Pages → Build and deployment → Source → GitHub Actions**
+2. 推送 **`main`** 后自动部署（也可 Actions 里 **workflow_dispatch** 手动触发）
+3. 生产构建 `GITHUB_PAGES=true`，Vite `base` 为 `/stardesk/`（本地 `npm run dev` 仍为 `/`）
+4. 本地子路径 smoke：`npm run build:pages` → `npm run preview:pages` → `http://localhost:4173/stardesk/#/`
 
-未 merge `main`、未打 v1.1.0；实机清单见 `docs/IPAD_ACCEPTANCE_CHECKLIST.md`。
+**v1.1.0** 起正式版与 Pages 同源为 `main`；实机清单见 `docs/IPAD_ACCEPTANCE_CHECKLIST.md`。
 
 ## 数据存在哪里
 

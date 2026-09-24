@@ -33,7 +33,7 @@ export default defineConfig({
   projects: [
     {
       name: 'msedge-desktop',
-      testIgnore: /08-ipad-pwa\.spec\.ts/,
+      testIgnore: /08-ipad-pwa\.spec\.ts|10-ipad-resume-touch\.spec\.ts/,
       use: { ...devices['Desktop Chrome'], channel: 'msedge' },
     },
     {
